@@ -29,7 +29,7 @@ def define_metric_learning_flags(flags):
 
 def define_common_flags(flags):
   flags.DEFINE_string(
-    name='dataset_name', default=None,
+    name='dataset_name', default='food101',
     help=flags_core.help_wrap('imagenet, food100, food101, cub_200_2011'))
 
   ################################################################################
