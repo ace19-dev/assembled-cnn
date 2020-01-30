@@ -61,7 +61,7 @@ def define_common_flags(flags):
     help=flags_core.help_wrap(
       'The minimal end learning rate used by a polynomial decay learning rate.'))
   flags.DEFINE_string(
-    name='learning_rate_decay_type', short_name='lrdt', default='exponential',
+    name='learning_rate_decay_type', short_name='lrdt', default='cosine',
     help=flags_core.help_wrap(
       'Specifies how the learning rate is decayed. One of '
       '"fixed", "exponential", "polynomial", "piecewise", "cosine"'))
@@ -70,7 +70,7 @@ def define_common_flags(flags):
     help=flags_core.help_wrap(
       'The momentum for the MomentumOptimizer.'))
   flags.DEFINE_float(
-    name='bn_momentum', default=0.997,
+    name='bn_momentum', default=0.966,
     help=flags_core.help_wrap(
       'batch normalization momentum.'))
   flags.DEFINE_integer(
@@ -129,13 +129,13 @@ def define_common_flags(flags):
     help=flags_core.help_wrap(' "imagenet" or "cub"'))
 
   flags.DEFINE_string(
-    name='autoaugment_type', default=None,
+    name='autoaugment_type', default='good',
     help=flags_core.help_wrap(
       'Specifies auto augmentation type. One of "imagenet", "svhn", "cifar", "good"'
       'To use numpy implementation, prefix "np_" to the type.'))
 
   flags.DEFINE_integer(
-    name='mixup_type', short_name='mixup_type', default=0,
+    name='mixup_type', short_name='mixup_type', default=1,
     help=flags_core.help_wrap(
       'Use mixup data augmentation. For more details, refer to https://arxiv.org/abs/1710.09412'
       'If type is 0, do not use mixup.'
@@ -155,20 +155,20 @@ def define_common_flags(flags):
     help=flags_core.help_wrap('Use SE block. '
                               'For more details, refer to https://arxiv.org/abs/1709.01507'))
   flags.DEFINE_boolean(
-    name='use_sk_block', default=False,
+    name='use_sk_block', default=True,
     help=flags_core.help_wrap('Use SK block.'))
   flags.DEFINE_integer(
-    name='anti_alias_filter_size', default=0,
+    name='anti_alias_filter_size', default=3,
     help=flags_core.help_wrap('Anti-aliasing filter size, One of 2, 3, 4, 5, 6, 7'))
 
   flags.DEFINE_string(
-    name='anti_alias_type', default="",
+    name='anti_alias_type', default="sconv",
     help=flags_core.help_wrap(
       'Specifies auto anti alias type. For example,  "max,proj,sconv" is fully anti-alias, '
       '"sconv" means that only strided conv is applied. '))
 
   flags.DEFINE_enum(
-    name='resnet_version', short_name='rv', default='1',
+    name='resnet_version', short_name='rv', default='2',
     enum_values=['1', '2'],
     help=flags_core.help_wrap(
       '1 is original ResNet structure.'
@@ -185,20 +185,20 @@ def define_common_flags(flags):
   # Regularization
   ################################################################################
   flags.DEFINE_float(
-    name='weight_decay', short_name='wd', default=0.00004,
+    name='weight_decay', short_name='wd', default=0.001,
     help=flags_core.help_wrap(
       'The weight decay on the model weights.'))
   flags.DEFINE_boolean(
-    name='use_dropblock', default=False,
+    name='use_dropblock', default=True,
     help=flags_core.help_wrap('Use dropblock. '
                               'For more details, refer to https://arxiv.org/abs/1810.12890'))
   flags.DEFINE_list(
     name='dropblock_kp', short_name='drblkp',
-    default=[1.0, 0.9],
+    default=[0.9, 0.7],
     help=flags_core.help_wrap(
       'Initial keep_prob and end keep_prob of dropblock.'))
   flags.DEFINE_float(
-    name='label_smoothing', short_name='lblsm', default=0.0,
+    name='label_smoothing', short_name='lblsm', default=0.1,
     help=flags_core.help_wrap(
       'If greater than 0 then smooth the labels.'))
   flags.DEFINE_float(
@@ -209,7 +209,7 @@ def define_common_flags(flags):
   # Tricks to Learn the Models
   ################################################################################
   flags.DEFINE_integer(
-    name='lr_warmup_epochs', default=0,
+    name='lr_warmup_epochs', default=5,
     help=flags_core.help_wrap('The number of learning rate warmup epochs. If 0 do not use warmup'))
   flags.DEFINE_boolean(
     name='zero_gamma', default=False,
@@ -246,7 +246,7 @@ def define_common_flags(flags):
     name='keep_ckpt_every_eval', default=True,
     help=flags_core.help_wrap('If True, checkpoints are saved for each evaluation.'))
   flags.DEFINE_integer(
-    name='keep_checkpoint_max', default=20,
+    name='keep_checkpoint_max', default=0,
     help=flags_core.help_wrap('keep checkpoint max.'))
   flags.DEFINE_boolean(
     name='eval_only', default=False,
@@ -266,7 +266,7 @@ def define_common_flags(flags):
     name='save_checkpoints_epochs', default=1.0,
     help=flags_core.help_wrap('Save checkpoint every save_checkpoints_epochs'))
   flags.DEFINE_float(
-    name='ratio_fine_eval', default=1.0,
+    name='ratio_fine_eval', default=0.9,
     help=flags_core.help_wrap('From `train_epochs` *` ratio_fine_eval`, '
                               'it evaluates every 1 epoch.'))
   flags.DEFINE_boolean(

@@ -3,20 +3,20 @@
 set -e
 
 # Where the ImageNet2012 TFR is stored to. Replace this with yours
-DATA_DIR=/home1/irteam/user/jklee/food-fighters/models/tensorflow/ETHZ-food-101
+DATA_DIR=/home/ace19/dl_data/food-101/tfrecord
 
 # Where the the fine-tuned checkpoint is saved to. Replace this with yours
-MODEL_DIR=hdfs://c3/user/tapi/sweaterr/train_food101_3/Assemble-R50
+MODEL_DIR=/home/ace19/my-repo/assembled-cnn/pre-trained/Assemble-ResNet50
 
 # Where the pretrained checkpoint is saved to. Replace this with yours
-PRETRAINED_PATH=hdfs://c3/user/tapi/sweaterr/train_imagenet/m13blskaa_mixupaa_drbl_kd_ep600
+#PRETRAINED_PATH=hdfs://c3/user/tapi/sweaterr/train_imagenet/m13blskaa_mixupaa_drbl_kd_ep600
 
 CUDA_VISIBLE_DEVICES=0,1,2,3 python main_classification.py \
 --dataset_name=food101 \
 --data_dir=${DATA_DIR} \
 --model_dir=${MODEL_DIR} \
 --pretrained_model_checkpoint_path=${PRETRAINED_PATH} \
---num_gpus=4 \
+--num_gpus=1 \
 --mixup_type=1 \
 --autoaugment_type=good \
 --label_smoothing=0.1 \
@@ -27,7 +27,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python main_classification.py \
 --use_sk_block=True \
 --use_dropblock=True \
 --dropblock_kp="0.9,0.7" \
---batch_size=256 \
+--batch_size=16 \
 --base_learning_rate=0.01 \
 --learning_rate_decay_type=cosine \
 --lr_warmup_epochs=5 \

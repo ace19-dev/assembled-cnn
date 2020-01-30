@@ -49,13 +49,14 @@ def define_base(data_dir=True, model_dir=True, clean=True, train_epochs=True,
 
   if data_dir:
     flags.DEFINE_string(
-        name="data_dir", short_name="dd", default="/tmp",
+        name="data_dir", short_name="dd", default="/home/ace19/dl_data/food-101/tfrecord",
         help=help_wrap("The location of the input data."))
     key_flags.append("data_dir")
 
   if model_dir:
     flags.DEFINE_string(
-        name="model_dir", short_name="md", default="/tmp",
+        name="model_dir", short_name="md",
+        default="/home/ace19/my-repo/assembled-cnn/pre-trained/Assemble-ResNet50",
         help=help_wrap("The location of the model checkpoint files."))
     key_flags.append("model_dir")
 
@@ -73,7 +74,7 @@ def define_base(data_dir=True, model_dir=True, clean=True, train_epochs=True,
 
   if epochs_between_evals:
     flags.DEFINE_integer(
-        name="epochs_between_evals", short_name="ebe", default=1,
+        name="epochs_between_evals", short_name="ebe", default=10,
         help=help_wrap("The number of training epochs to run between "
                        "evaluations."))
     key_flags.append("epochs_between_evals")
@@ -88,7 +89,7 @@ def define_base(data_dir=True, model_dir=True, clean=True, train_epochs=True,
 
   if batch_size:
     flags.DEFINE_integer(
-        name="batch_size", short_name="bs", default=32,
+        name="batch_size", short_name="bs", default=8,
         help=help_wrap("Batch size for training and evaluation. When using "
                        "multiple gpus, this is the global batch size for "
                        "all devices. For example, if the batch size is 32 "

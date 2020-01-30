@@ -26,9 +26,9 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 parser = argparse.ArgumentParser()
 
 parser.add_argument('-d', '--data_dir', type=str,
-                    default='/mnt/sda/dl_data/food101', help='Input data directory.')
+                    default='/home/ace19/dl_data/food-101', help='Input data directory.')
 parser.add_argument('-o', '--output_dir', type=str,
-                    default='/mnt/sda/dl_data/food101/tfrecord', help='Output data directory.')
+                    default='/home/ace19/dl_data/food-101/tfrecord', help='Output data directory.')
 parser.add_argument('--train_shards', type=int, default=128, help='Number of shards in training TFRecord files.')
 parser.add_argument('--validation_shards', type=int, default=16, help='Number of shards in validation TFRecord files.')
 parser.add_argument('--num_threads', type=int, default=8, help='Number of threads to preprocess the images.')

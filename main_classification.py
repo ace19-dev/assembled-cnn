@@ -35,7 +35,7 @@ def define_flags():
   run_loop_classification.define_resnet_flags(
     resnet_size_choices=['18', '34', '50', '101', '152', '200'])
   flags.adopt_module_key_flags(run_loop_classification)
-  flags_core.set_defaults(train_epochs=90)
+  flags_core.set_defaults(train_epochs=100)
 
 
 def run(flags_obj):
